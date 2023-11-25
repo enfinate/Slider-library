@@ -10,6 +10,7 @@ class Slider{
             sliderWidthPercent:100
         }
     }){
+        
         this.duration=duration*1000
         this.loop=autoplay
         this.looper=loop
@@ -133,7 +134,7 @@ class Slider{
                     </div>
                 </div>
             `
-            
+
             document.getElementById(randomIdLeft).onclick = () =>{
                 if(!(this.looper)){
                     if(this.initialLeft!=0){
@@ -231,13 +232,39 @@ class Slider{
                             paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psi+`</span>`
                         }
                     }
-                    
                     document.getElementById(this.innerSliderId).style.left="-"+this.initialLeft+"%"
                     document.getElementById(this.paginationId).innerHTML=paginationDots
+                    this.recallMeasure(page)
     
                 }
             })
         }
     }
 
+    recallMeasure(page){
+        if(page){
+            document.querySelectorAll(".everyPage").forEach((e)=>{
+                e.onclick=()=>{
+
+                    e.style.cursor = `pointer`
+                    let pagiSelect = parseInt((e.getAttribute("id")).split("-")[1])
+    
+                    this.currentSlide = pagiSelect
+                    this.initialLeft = (pagiSelect*100)-100
+                    
+                    let paginationDots=``
+                    for(let i=1; i<=this.sliderNumber; i++){
+                        if(this.currentSlide==(i)){
+                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psa+`</span>`
+                        }else{
+                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psi+`</span>`
+                        }
+                    }
+                    document.getElementById(this.innerSliderId).style.left="-"+this.initialLeft+"%"
+                    document.getElementById(this.paginationId).innerHTML=paginationDots
+                    this.navWorkin(page)
+                }
+            })
+        }
+    }
 }
