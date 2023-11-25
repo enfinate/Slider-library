@@ -98,9 +98,9 @@ class Slider{
             paginationDots=``
             for(let i=1; i<=this.sliderNumber; i++){
                 if(this.currentSlide==(i)){
-                    paginationDots += `<div id="pagi-${i}" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#666666; border-radius:100px;"></div>`
+                    paginationDots += pageSetting.active
                 }else{
-                    paginationDots += `<div id="pagi-${i}" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#CBCBCB; border-radius:100px;"></div>`
+                    paginationDots += pageSetting.inactive
                 }
             }
             document.getElementById(this.paginationId).innerHTML=paginationDots
@@ -140,9 +140,9 @@ class Slider{
                             paginationDots=``
                             for(let i=1; i<=this.sliderNumber; i++){
                                 if(this.currentSlide==(i)){
-                                    paginationDots += `<div id="pagi-${i}" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#666666; border-radius:100px;"></div>`
+                                    paginationDots += pageSetting.active
                                 }else{
-                                    paginationDots += `<div id="pagi-${i}" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#CBCBCB; border-radius:100px;"></div>`
+                                    paginationDots += pageSetting.inactive
                                 }
                             }
                             if(loopContinue==false){
@@ -162,9 +162,9 @@ class Slider{
                         paginationDots=``
                         for(let i=1; i<=this.sliderNumber; i++){
                             if(this.currentSlide==(i)){
-                                paginationDots += `<div id="pagi-${i}" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#666666; border-radius:100px;"></div>`
+                                paginationDots += pageSetting.active
                             }else{
-                                paginationDots += `<div id="pagi-${i}" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#CBCBCB; border-radius:100px;"></div>`
+                                paginationDots += pageSetting.inactive
                             }
                         }
                         if(loopContinue==false){
@@ -193,9 +193,9 @@ class Slider{
                         paginationDots=``
                         for(let i=1; i<=this.sliderNumber; i++){
                             if(this.currentSlide==(i)){
-                                paginationDots += `<div id="pagi-${i}" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#666666; border-radius:100px;"></div>`
+                                paginationDots += pageSetting.active
                             }else{
-                                paginationDots += `<div id="pagi-${i}" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#CBCBCB; border-radius:100px;"></div>`
+                                paginationDots += pageSetting.inactive
                             }
                         }
                         document.getElementById(this.paginationId).innerHTML=paginationDots
