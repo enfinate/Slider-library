@@ -29,8 +29,9 @@ class Slider{
         content.forEach(e => sliderContainerStructure+= e)
         sliderContainerStructure+=`
         </div>
+        </div>
         <div id="${this.paginationId}"style="width:100%; display: flex; justify-content: center; margin-top:15px; z-index:-1"></div>
-        </div>`
+        `
         
         this.content = sliderContainerStructure
 
@@ -52,6 +53,8 @@ class Slider{
             Right: `Right`,
         }
     }){
+        this.psa = pageSetting.active
+        this.psi = pageSetting.inactive
 
         document.getElementById(this.containerId).innerHTML = this.content
         let minus
@@ -81,12 +84,13 @@ class Slider{
                         paginationDots=``
                         for(let i=1; i<=this.sliderNumber; i++){
                             if(this.currentSlide==(i)){
-                                paginationDots += pageSetting.active
+                                paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.active+`</span>`
                             }else{
-                                paginationDots += pageSetting.inactive
+                                paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.inactive+`</span>`
                             }
                         }
                         document.getElementById(this.paginationId).innerHTML=paginationDots
+                        this.navWorkin(page)
                     }
 
                 }
@@ -94,16 +98,17 @@ class Slider{
             }, this.duration)
         }
         
-        if(page){
+        if(page){              
             paginationDots=``
             for(let i=1; i<=this.sliderNumber; i++){
                 if(this.currentSlide==(i)){
-                    paginationDots += pageSetting.active
+                    paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.active+`</span>`
                 }else{
-                    paginationDots += pageSetting.inactive
+                    paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.inactive+`</span>`
                 }
             }
             document.getElementById(this.paginationId).innerHTML=paginationDots
+            this.navWorkin(page)
         }
 
         if(nav){
@@ -128,6 +133,7 @@ class Slider{
                     </div>
                 </div>
             `
+            
             document.getElementById(randomIdLeft).onclick = () =>{
                 if(!(this.looper)){
                     if(this.initialLeft!=0){
@@ -140,18 +146,19 @@ class Slider{
                             paginationDots=``
                             for(let i=1; i<=this.sliderNumber; i++){
                                 if(this.currentSlide==(i)){
-                                    paginationDots += pageSetting.active
+                                    paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.active+`</span>`
                                 }else{
-                                    paginationDots += pageSetting.inactive
+                                    paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.inactive+`</span>`
                                 }
                             }
                             if(loopContinue==false){
                                 loopContinue=true
                             }
-        
                             document.getElementById(this.paginationId).innerHTML=paginationDots
+                            this.navWorkin(page)
                         }
                     }
+
                 }else{
                     this.initialLeft = this.initialLeft==0 && this.looper ? this.maxScrollBack : this.initialLeft-100
                     minus = this.initialLeft!=0 ? "-" : ""
@@ -162,18 +169,17 @@ class Slider{
                         paginationDots=``
                         for(let i=1; i<=this.sliderNumber; i++){
                             if(this.currentSlide==(i)){
-                                paginationDots += pageSetting.active
+                                paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.active+`</span>`
                             }else{
-                                paginationDots += pageSetting.inactive
+                                paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.inactive+`</span>`
                             }
                         }
                         if(loopContinue==false){
                             loopContinue=true
                         }
-    
                         document.getElementById(this.paginationId).innerHTML=paginationDots
-                    }
-                    
+                        this.navWorkin(page)
+                    } 
                 }
             }
             
@@ -193,15 +199,45 @@ class Slider{
                         paginationDots=``
                         for(let i=1; i<=this.sliderNumber; i++){
                             if(this.currentSlide==(i)){
-                                paginationDots += pageSetting.active
+                                paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.active+`</span>`
                             }else{
-                                paginationDots += pageSetting.inactive
+                                paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.inactive+`</span>`
                             }
                         }
-                        document.getElementById(this.paginationId).innerHTML=paginationDots
+                        document.getElementById(this.paginationId).innerHTML=paginationDots                
+                        this.navWorkin(page)
                     }
                 }
             }
-        }   
+        }  
     }
+
+    navWorkin(page){
+        if(page){
+            document.querySelectorAll(".everyPage").forEach((e)=>{
+                e.onclick=()=>{
+
+                    e.style.cursor = `pointer`
+                    let pagiSelect = parseInt((e.getAttribute("id")).split("-")[1])
+    
+                    this.currentSlide = pagiSelect
+                    this.initialLeft = (pagiSelect*100)-100
+                    
+                    let paginationDots=``
+                    for(let i=1; i<=this.sliderNumber; i++){
+                        if(this.currentSlide==(i)){
+                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psa+`</span>`
+                        }else{
+                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psi+`</span>`
+                        }
+                    }
+                    
+                    document.getElementById(this.innerSliderId).style.left="-"+this.initialLeft+"%"
+                    document.getElementById(this.paginationId).innerHTML=paginationDots
+    
+                }
+            })
+        }
+    }
+
 }
