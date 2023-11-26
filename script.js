@@ -55,8 +55,8 @@ class Slider{
         }
     }){
 
-        this.psa = pageSetting.active
-        this.psi = pageSetting.inactive
+        this.pageSettingActive = pageSetting.active
+        this.pageSettingInactive = pageSetting.inactive
 
         document.getElementById(this.containerId).innerHTML = this.content
 
@@ -213,19 +213,22 @@ class Slider{
         }  
 
         if(page){
-            document.getElementById('inner-active').style.cursor = "pointer"
-            document.getElementById('inner-active').style.width = "30px"
-            document.getElementById('inner-active').style.height = "4px"
-            document.getElementById('inner-active').style.borderRadius = "20px"
-            document.getElementById('inner-active').style.backgroundColor = "#666666"
-            document.getElementById('inner-active').style.margin = "1px"
-    
-            document.getElementById('inner-inactive').style.cursor = "pointer"
-            document.getElementById('inner-inactive').style.width = "30px"
-            document.getElementById('inner-inactive').style.height = "4px"
-            document.getElementById('inner-inactive').style.borderRadius = "20px"
-            document.getElementById('inner-inactive').style.backgroundColor = "#CBCBCB"
-            document.getElementById('inner-inactive').style.margin = "1px"
+            if(pageSetting.active==`<div id="inner-active"></div>`){
+                document.getElementById('inner-active').style.cursor = "pointer"
+                document.getElementById('inner-active').style.width = "30px"
+                document.getElementById('inner-active').style.height = "4px"
+                document.getElementById('inner-active').style.borderRadius = "20px"
+                document.getElementById('inner-active').style.backgroundColor = "#666666"
+                document.getElementById('inner-active').style.margin = "1px"
+            }
+            if(pageSetting.inactive==`<div id="inner-inactive"></div>`){   
+                document.getElementById('inner-inactive').style.cursor = "pointer"
+                document.getElementById('inner-inactive').style.width = "30px"
+                document.getElementById('inner-inactive').style.height = "4px"
+                document.getElementById('inner-inactive').style.borderRadius = "20px"
+                document.getElementById('inner-inactive').style.backgroundColor = "#CBCBCB"
+                document.getElementById('inner-inactive').style.margin = "1px"
+            }
         }
 
     }
@@ -244,9 +247,9 @@ class Slider{
                     let paginationDots=``
                     for(let i=1; i<=this.sliderNumber; i++){
                         if(this.currentSlide==(i)){
-                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psa+`</span>`
+                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.pageSettingActive+`</span>`
                         }else{
-                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psi+`</span>`
+                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.pageSettingInactive+`</span>`
                         }
                     }
                     document.getElementById(this.innerSliderId).style.left="-"+this.initialLeft+"%"
@@ -259,7 +262,6 @@ class Slider{
                             this.loopContinue=true
                         }
                     }
-
                     this.recallMeasure(page)
                 }
             })
@@ -279,9 +281,9 @@ class Slider{
                     let paginationDots=``
                     for(let i=1; i<=this.sliderNumber; i++){
                         if(this.currentSlide==(i)){
-                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psa+`</span>`
+                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.pageSettingActive+`</span>`
                         }else{
-                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.psi+`</span>`
+                            paginationDots += `<span id="pagi-${i}" class="everyPage">`+this.pageSettingInactive+`</span>`
                         }
                     }
                     document.getElementById(this.innerSliderId).style.left="-"+this.initialLeft+"%"
@@ -294,10 +296,16 @@ class Slider{
                             this.loopContinue=true
                         }
                     }
-                    
+
                     this.navWorkin(page)
                 }
             })
         }
     }
 }
+
+/**
+     * This is library is created by https://athershahid.com 
+     * Feel free to use it in your web/applications
+     * Note: this library will constantly be updating.
+ */
