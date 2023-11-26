@@ -10,7 +10,7 @@ class Slider{
             sliderWidthPercent:100
         }
     }){
-        
+
         this.duration=duration*1000
         this.loop=autoplay
         this.looper=loop
@@ -39,32 +39,34 @@ class Slider{
         this.totalInnerWidthPer = innerSliderWidth
         this.maxScrollBack = this.totalInnerWidthPer-100
         this.initialLeft = 0
-
+        
     }
 
     init({
         nav=false,
         page=false,
         pageSetting={
-            active:`<div id="" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#666666; border-radius:100px;"></div>`,
-            inactive:`<div id="" class="pagis" style="width: 15px; height: 15px; margin:0 5px; background:#CBCBCB; border-radius:100px;"></div>`,
+            active:`<div id="inner-active"></div>`,
+            inactive:`<div id="inner-inactive"></div>`,
         },
         navSetting={
             Left: `Left`,
             Right: `Right`,
         }
     }){
+
         this.psa = pageSetting.active
         this.psi = pageSetting.inactive
 
         document.getElementById(this.containerId).innerHTML = this.content
+
         let minus
         let paginationDots
-        let loopContinue = true
+        this.loopContinue = true
 
         if(this.loop){
             setInterval(()=>{
-                if(loopContinue){
+                if(this.loopContinue){
 
                     if(this.initialLeft!=this.maxScrollBack || this.initialLeft>this.maxScrollBack){
                         this.initialLeft = this.initialLeft+100
@@ -76,7 +78,7 @@ class Slider{
     
                     
                     if(!(this.looper) && this.currentSlide == this.sliderNumber-1){
-                        loopContinue=false
+                        this.loopContinue=false
                     }
     
                     this.currentSlide = this.sliderNumber > this.currentSlide ? this.currentSlide+1 : 1
@@ -93,9 +95,7 @@ class Slider{
                         document.getElementById(this.paginationId).innerHTML=paginationDots
                         this.navWorkin(page)
                     }
-
                 }
-
             }, this.duration)
         }
         
@@ -152,8 +152,8 @@ class Slider{
                                     paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.inactive+`</span>`
                                 }
                             }
-                            if(loopContinue==false){
-                                loopContinue=true
+                            if(this.loopContinue==false){
+                                this.loopContinue=true
                             }
                             document.getElementById(this.paginationId).innerHTML=paginationDots
                             this.navWorkin(page)
@@ -175,8 +175,8 @@ class Slider{
                                 paginationDots += `<span id="pagi-${i}" class="everyPage">`+pageSetting.inactive+`</span>`
                             }
                         }
-                        if(loopContinue==false){
-                            loopContinue=true
+                        if(this.loopContinue==false){
+                            this.loopContinue=true
                         }
                         document.getElementById(this.paginationId).innerHTML=paginationDots
                         this.navWorkin(page)
@@ -186,10 +186,10 @@ class Slider{
             
             document.getElementById(randomIdRight).onclick = () =>{
                 
-                if(loopContinue){
+                if(this.loopContinue){
                     
                     if(!(this.looper) && this.currentSlide == this.sliderNumber-1){
-                        loopContinue=false
+                        this.loopContinue=false
                     }
 
                     this.initialLeft = this.initialLeft!=this.maxScrollBack || this.initialLeft>this.maxScrollBack ? this.initialLeft+100 : 0
@@ -211,6 +211,23 @@ class Slider{
                 }
             }
         }  
+
+        if(page){
+            document.getElementById('inner-active').style.cursor = "pointer"
+            document.getElementById('inner-active').style.width = "30px"
+            document.getElementById('inner-active').style.height = "4px"
+            document.getElementById('inner-active').style.borderRadius = "20px"
+            document.getElementById('inner-active').style.backgroundColor = "#666666"
+            document.getElementById('inner-active').style.margin = "1px"
+    
+            document.getElementById('inner-inactive').style.cursor = "pointer"
+            document.getElementById('inner-inactive').style.width = "30px"
+            document.getElementById('inner-inactive').style.height = "4px"
+            document.getElementById('inner-inactive').style.borderRadius = "20px"
+            document.getElementById('inner-inactive').style.backgroundColor = "#CBCBCB"
+            document.getElementById('inner-inactive').style.margin = "1px"
+        }
+
     }
 
     navWorkin(page){
@@ -234,8 +251,16 @@ class Slider{
                     }
                     document.getElementById(this.innerSliderId).style.left="-"+this.initialLeft+"%"
                     document.getElementById(this.paginationId).innerHTML=paginationDots
+                    
+                    if(!this.looper){
+                        if(pagiSelect == this.sliderNumber){
+                            this.loopContinue=false
+                        }else{
+                            this.loopContinue=true
+                        }
+                    }
+
                     this.recallMeasure(page)
-    
                 }
             })
         }
@@ -245,7 +270,6 @@ class Slider{
         if(page){
             document.querySelectorAll(".everyPage").forEach((e)=>{
                 e.onclick=()=>{
-
                     e.style.cursor = `pointer`
                     let pagiSelect = parseInt((e.getAttribute("id")).split("-")[1])
     
@@ -262,6 +286,15 @@ class Slider{
                     }
                     document.getElementById(this.innerSliderId).style.left="-"+this.initialLeft+"%"
                     document.getElementById(this.paginationId).innerHTML=paginationDots
+                    
+                    if(!this.looper){
+                        if(pagiSelect == this.sliderNumber){
+                            this.loopContinue=false
+                        }else{
+                            this.loopContinue=true
+                        }
+                    }
+                    
                     this.navWorkin(page)
                 }
             })
