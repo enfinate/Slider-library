@@ -27,35 +27,35 @@ class Slider {
         this.paginationId = "pagination-area" + Math.random()
 
         let sliderContainerStructure = `
-            <div 
-                id="${this.OuterSliderId}" 
-                style="
-                    width:${outerSliderWidth}%; 
-                    overflow: hidden
-                ">
-                    <div 
-                        id="${this.innerSliderId}" 
-                        style="
-                            transition: .${transition}s;
-                            width: ${innerSliderWidth}%; 
-                            display: flex; 
-                            position: relative; 
-                            left:0;
-                        ">
-        `
+<div 
+id="${this.OuterSliderId}" 
+style="
+width:${outerSliderWidth}%; 
+overflow: hidden
+">
+<div 
+id="${this.innerSliderId}" 
+style="
+transition: .${transition}s;
+width: ${innerSliderWidth}%; 
+display: flex; 
+position: relative; 
+left:0;
+">
+`
         content.forEach(e => sliderContainerStructure += e)
         sliderContainerStructure += `
-            </div></div>
-            <div 
-                id="${this.paginationId}"
-                style="
-                    width:100%; 
-                    display: flex; 
-                    justify-content: center; 
-                    margin-top:15px; 
-                    z-index:-1
-                "></div>
-        `
+</div></div>
+<div 
+id="${this.paginationId}"
+style="
+width:100%; 
+display: flex; 
+justify-content: center; 
+margin-top:15px; 
+z-index:-1
+"></div>
+`
 
         this.content = sliderContainerStructure
 
@@ -66,8 +66,8 @@ class Slider {
     }
 
     init({
-        nav=true,
-        page=true,
+        nav = true,
+        page = true,
         pageSetting = {
             active: `<div class="pagination-button pagination-active"></div>`,
             inactive: `<div class="pagination-button"></div>`,
@@ -82,9 +82,6 @@ class Slider {
         this.pageSettingInactive = pageSetting.inactive
 
         document.getElementById(this.containerId).innerHTML = this.content
-
-
-
 
         let minus
         let paginationDots
@@ -147,19 +144,19 @@ class Slider {
             let containerStyle = `height:${offsetHeightOfElement}px; background: transparent; margin-top:-${offsetHeightOfElement}px; display: flex; align-items: center; padding:0 20px;`
 
             document.getElementById(this.OuterSliderId).innerHTML += `
-                <div style="width:100%; height:0px; background:rgba(0,0,0,1); margin-top:0px;position: relative; z-index:20; display: flex; justify-content: space-between">
-                    <div style="${containerStyle}">
-                        <span id="${randomIdLeft}">
-                            ${navSetting.Left}
-                        </span>
-                    </div>
-                    <div style="${containerStyle}">
-                        <span id="${randomIdRight}">
-                            ${navSetting.Right}
-                        </span>
-                    </div>
-                </div>
-            `
+<div style="width:100%; height:0px; background:rgba(0,0,0,1); margin-top:0px;position: relative; z-index:20; display: flex; justify-content: space-between">
+<div style="${containerStyle}">
+<span id="${randomIdLeft}">
+${navSetting.Left}
+</span>
+</div>
+<div style="${containerStyle}">
+<span id="${randomIdRight}">
+${navSetting.Right}
+</span>
+</div>
+</div>
+`
 
             document.getElementById(randomIdLeft).onclick = () => {
                 if (!(this.looper)) {
@@ -321,10 +318,10 @@ class Slider {
 
     }
 
-    navStyleRecursion(page){
+    navStyleRecursion(page) {
 
         if (page) {
-            document.querySelectorAll(".pagination-button").forEach((e)=>{
+            document.querySelectorAll(".pagination-button").forEach((e) => {
                 e.style.cursor = "pointer"
                 e.style.width = "30px"
                 e.style.height = "4px"
@@ -332,14 +329,14 @@ class Slider {
                 e.style.backgroundColor = "#CBCBCB"
                 e.style.margin = "1px"
             })
-            document.querySelector(".pagination-active").style.backgroundColor="#666666"
+            document.querySelector(".pagination-active").style.backgroundColor = "#666666"
         }
-        
+
     }
 }
 
 /**
-     * This is library is created by https://athershahid.com 
-     * Feel free to use it in your web/applications
-     * Note: this library will constantly be updating.
+ * This is library is created by https://athershahid.com 
+ * Feel free to use it in your web/applications
+ * Note: this library will constantly be updating.
  */
