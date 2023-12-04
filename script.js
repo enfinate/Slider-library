@@ -33,7 +33,7 @@ class Slider {
                     <div 
                         id="${this.innerSliderId}" 
                         style="
-                            transition: .${transition}s;
+                            transition: ${transition}s;
                             width: ${innerSliderWidth}%; 
                             display: flex; 
                             position: relative; 
@@ -47,6 +47,7 @@ class Slider {
             <div 
                 id="${this.paginationId}"
                 style="
+                    transition: ${transition}s;
                     width:100%; 
                     display: flex; 
                     justify-content: center; 
@@ -280,7 +281,7 @@ class Slider {
 }
 
 /**
- * This is library is created by https://athershahid.com 
- * Feel free to use it in your web/applications
- * Note: this library will constantly be updating.
+     * This is library is created by https://athershahid.com 
+     * Feel free to use it in your web/applications
+     * Note: this library will constantly be updating.
  */
